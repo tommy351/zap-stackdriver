@@ -1,6 +1,8 @@
 package stackdriver
 
 import (
+	"runtime"
+
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -39,6 +41,8 @@ var EncoderConfig = zapcore.EncoderConfig{
 type Core struct {
 	zapcore.Core
 
+	SetReportLocation bool
+
 	ctx *Context
 }
 
@@ -60,6 +64,12 @@ func (c *Core) Check(entry zapcore.Entry, ce *zapcore.CheckedEntry) *zapcore.Che
 }
 
 func (c *Core) Write(entry zapcore.Entry, fields []zapcore.Field) error {
+	loc := c.getReportLocationFromEntry(entry)
+
+	if loc != nil {
+		fields = append(fields, LogReportLocation(loc))
+	}
+
 	fields, ctx := c.extractCtx(fields)
 	fields = append(fields, zap.Object("context", ctx))
 
@@ -92,6 +102,29 @@ func (c *Core) cloneCtx() *Context {
 	}
 
 	return c.ctx.Clone()
+}
+
+func (c *Core) getReportLocationFromEntry(entry zapcore.Entry) *ReportLocation {
+	if !c.SetReportLocation {
+		return nil
+	}
+
+	caller := entry.Caller
+
+	if !caller.Defined {
+		return nil
+	}
+
+	loc := &ReportLocation{
+		FilePath:   caller.File,
+		LineNumber: caller.Line,
+	}
+
+	if fn := runtime.FuncForPC(caller.PC); fn != nil {
+		loc.FunctionName = fn.Name()
+	}
+
+	return loc
 }
 
 func LogServiceContext(ctx *ServiceContext) zapcore.Field {

@@ -3,7 +3,10 @@ package stackdriver
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"io"
+	"runtime"
+	"strings"
 	"testing"
 	"time"
 
@@ -34,7 +37,7 @@ func (t *logEntryTime) UnmarshalText(text []byte) error {
 	return nil
 }
 
-func newCore(writer io.Writer) zapcore.Core {
+func newCore(writer io.Writer) *Core {
 	enc := zapcore.NewJSONEncoder(EncoderConfig)
 	core := zapcore.NewCore(enc, zapcore.AddSync(writer), zapcore.DebugLevel)
 
@@ -105,6 +108,24 @@ func TestCore(t *testing.T) {
 			HTTPRequest:    req,
 			ReportLocation: loc,
 		}, actual.Context)
+	})
+
+	t.Run("Set report location from entry", func(t *testing.T) {
+		defer writer.Reset()
+
+		core := newCore(writer)
+		core.SetReportLocation = true
+		logger := zap.New(core, zap.AddCaller())
+		err := errors.New("random error")
+		_, file, line, _ := runtime.Caller(0)
+		logger.Error("", zap.Error(err))
+
+		var actual logEntry
+		require.Nil(t, json.Unmarshal(writer.Bytes(), &actual))
+		loc := actual.Context.ReportLocation
+		assert.Equal(t, file, loc.FilePath)
+		assert.Equal(t, line+1, loc.LineNumber)
+		assert.True(t, strings.HasPrefix(loc.FunctionName, "github.com/tommy351/zap-stackdriver.TestCore"))
 	})
 }
 
