@@ -10,5 +10,8 @@ cache:
 install:
   - glide --version || go get -u -f github.com/Masterminds/glide
   - glide install
+  - go get golang.org/x/tools/cmd/cover
+  - go get github.com/mattn/goveralls
 script:
-  - go test -v $(glide nv)
+  - go test -v -covermode=count -coverprofile=coverage.out
+  - goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
