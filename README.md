@@ -1,6 +1,6 @@
 # zap-stackdriver
 
-[![Build Status](https://travis-ci.org/tommy351/zap-stackdriver.svg)](https://travis-ci.org/tommy351/zap-stackdriver)
+[![Build Status](https://travis-ci.org/tommy351/zap-stackdriver.svg)](https://travis-ci.org/tommy351/zap-stackdriver) [![GoDoc](https://godoc.org/github.com/tommy351/zap-stackdriver?status.svg)](https://godoc.org/github.com/tommy351/zap-stackdriver)
 
 Prints [Stackdriver format](https://cloud.google.com/error-reporting/docs/formatting-error-messages) logs with [zap](https://github.com/uber-go/zap).
 
