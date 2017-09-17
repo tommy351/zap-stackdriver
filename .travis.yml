@@ -1,0 +1,14 @@
+language: go
+sudo: false
+go:
+  - 1.7
+  - 1.8
+  - 1.9
+cache:
+  directories:
+    - vendor
+install:
+  - glide --version || go get -u -f github.com/Masterminds/glide
+  - glide install
+script:
+  - go test -v $(glide nv)
