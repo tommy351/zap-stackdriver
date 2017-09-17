@@ -1,19 +1,4 @@
-# zap-stackdriver
-
-[![Build Status](https://travis-ci.org/tommy351/zap-stackdriver.svg)](https://travis-ci.org/tommy351/zap-stackdriver) [![GoDoc](https://godoc.org/github.com/tommy351/zap-stackdriver?status.svg)](https://godoc.org/github.com/tommy351/zap-stackdriver)
-
-Prints [Stackdriver format](https://cloud.google.com/error-reporting/docs/formatting-error-messages) logs with [zap](https://github.com/uber-go/zap).
-
-## Installation
-
-``` sh
-go get -u github.com/tommy351/zap-stackdriver
-```
-
-## Usage
-
-``` go
-package main
+package stackdriver_test
 
 import (
 	"github.com/tommy351/zap-stackdriver"
@@ -21,7 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func main() {
+func ExampleBasic() {
 	config := &zap.Config{
 		Level:            zap.NewAtomicLevelAt(zapcore.InfoLevel),
 		Encoding:         "json",
@@ -56,4 +41,3 @@ func main() {
 			RemoteIP:           "1.2.3.4",
 		}))
 }
-```
