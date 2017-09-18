@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-func ExampleBasic() {
+func Example_basic() {
 	config := &zap.Config{
 		Level:            zap.NewAtomicLevelAt(zapcore.InfoLevel),
 		Encoding:         "json",
