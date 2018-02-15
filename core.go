@@ -50,8 +50,9 @@ func (c *Core) With(fields []zapcore.Field) zapcore.Core {
 	fields, ctx := c.extractCtx(fields)
 
 	return &Core{
-		Core: c.Core.With(fields),
-		ctx:  ctx,
+		Core:              c.Core.With(fields),
+		SetReportLocation: c.SetReportLocation,
+		ctx:               ctx,
 	}
 }
 
