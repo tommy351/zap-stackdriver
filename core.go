@@ -77,6 +77,10 @@ func (c *Core) Write(entry zapcore.Entry, fields []zapcore.Field) error {
 	return c.Core.Write(entry, fields)
 }
 
+func (c *Core) Sync() error {
+	return c.Core.Sync()
+}
+
 func (c *Core) extractCtx(fields []zapcore.Field) ([]zapcore.Field, *Context) {
 	output := []zapcore.Field{}
 	ctx := c.cloneCtx()
