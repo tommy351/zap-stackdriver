@@ -47,7 +47,9 @@ func (c *Context) Clone() *Context {
 }
 
 func (c *Context) MarshalLogObject(e zapcore.ObjectEncoder) (err error) {
-	e.AddString("user", c.User)
+	if c.User != "" {
+		e.AddString("user", c.User)
+	}
 
 	if c.HTTPRequest != nil {
 		if err = e.AddObject("httpRequest", c.HTTPRequest); err != nil {
