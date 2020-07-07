@@ -1,5 +1,0 @@
-package: github.com/tommy351/zap-stackdriver
-import:
-- package: go.uber.org/zap
-testImport:
-- package: github.com/stretchr/testify
