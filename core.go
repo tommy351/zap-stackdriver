@@ -14,6 +14,7 @@ const (
 	logKeyContextReportLocation = "context.reportLocation"
 )
 
+// nolint: gochecknoglobals
 var logLevelSeverity = map[zapcore.Level]string{
 	zapcore.DebugLevel:  "DEBUG",
 	zapcore.InfoLevel:   "INFO",
@@ -24,19 +25,22 @@ var logLevelSeverity = map[zapcore.Level]string{
 	zapcore.FatalLevel:  "EMERGENCY",
 }
 
-var EncoderConfig = zapcore.EncoderConfig{
-	TimeKey:        "eventTime",
-	LevelKey:       "severity",
-	NameKey:        "logger",
-	CallerKey:      "caller",
-	MessageKey:     "message",
-	StacktraceKey:  "stacktrace",
-	LineEnding:     zapcore.DefaultLineEnding,
-	EncodeLevel:    EncodeLevel,
-	EncodeTime:     zapcore.ISO8601TimeEncoder,
-	EncodeDuration: zapcore.SecondsDurationEncoder,
-	EncodeCaller:   zapcore.ShortCallerEncoder,
-}
+// nolint: gochecknoglobals
+var (
+	EncoderConfig = zapcore.EncoderConfig{
+		TimeKey:        "eventTime",
+		LevelKey:       "severity",
+		NameKey:        "logger",
+		CallerKey:      "caller",
+		MessageKey:     "message",
+		StacktraceKey:  "stacktrace",
+		LineEnding:     zapcore.DefaultLineEnding,
+		EncodeLevel:    EncodeLevel,
+		EncodeTime:     zapcore.ISO8601TimeEncoder,
+		EncodeDuration: zapcore.SecondsDurationEncoder,
+		EncodeCaller:   zapcore.ShortCallerEncoder,
+	}
+)
 
 type Core struct {
 	zapcore.Core

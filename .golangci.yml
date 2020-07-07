@@ -1,0 +1,12 @@
+linters:
+  enable-all: true
+  disable:
+    - lll
+    - interfacer
+    - gomnd
+    - godox
+    - dogsled
+    - funlen
+    - wsl
+    - testpackage
+  fast: false

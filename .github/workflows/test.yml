@@ -2,12 +2,21 @@ name: Test
 on: [push, pull_request]
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Lint
+    steps:
+      - uses: actions/checkout@v2
+      - uses: golangci/golangci-lint-action@v1
+        with:
+          version: v1.27
   test:
     runs-on: ubuntu-latest
     strategy:
       matrix:
         go: ["1.14", "1.13", "1.12"]
     name: Go ${{ matrix.go }} test
+    needs: lint
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2

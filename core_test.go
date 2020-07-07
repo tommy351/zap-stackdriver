@@ -116,6 +116,7 @@ func TestCore(t *testing.T) {
 		core := newCore(writer)
 		core.SetReportLocation = true
 		logger := zap.New(core, zap.AddCaller())
+		// nolint: goerr113
 		err := errors.New("random error")
 		_, file, line, _ := runtime.Caller(0)
 		logger.Error("", zap.Error(err))
@@ -188,6 +189,8 @@ func TestEncodeLevel(t *testing.T) {
 	}
 
 	for _, test := range tests {
+		test := test
+
 		t.Run(test.Expected, func(t *testing.T) {
 			enc := new(PrimitiveArrayEncoder)
 			enc.On("AppendString", test.Expected).Once()
