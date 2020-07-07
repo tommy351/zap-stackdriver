@@ -1,13 +1,13 @@
 # zap-stackdriver
 
-[![GoDoc](https://godoc.org/github.com/tommy351/zap-stackdriver?status.svg)](https://godoc.org/github.com/tommy351/zap-stackdriver) [![Build Status](https://travis-ci.org/tommy351/zap-stackdriver.svg)](https://travis-ci.org/tommy351/zap-stackdriver) [![Coverage Status](https://coveralls.io/repos/github/tommy351/zap-stackdriver/badge.svg)](https://coveralls.io/github/tommy351/zap-stackdriver)
+[![GitHub tag (latest SemVer)](https://img.shields.io/github/v/tag/tommy351/zap-stackdriver)](https://github.com/tommy351/zap-stackdriver/releases) [![go.dev reference](https://img.shields.io/badge/go.dev-reference-007d9c?logo=go&logoColor=white)](https://pkg.go.dev/github.com/tommy351/zap-stackdriver) ![Test](https://github.com/tommy351/zap-stackdriver/workflows/Test/badge.svg) [![codecov](https://codecov.io/gh/tommy351/zap-stackdriver/branch/master/graph/badge.svg)](https://codecov.io/gh/tommy351/zap-stackdriver)
 
 Prints [Stackdriver format](https://cloud.google.com/error-reporting/docs/formatting-error-messages) logs with [zap](https://github.com/uber-go/zap).
 
 ## Installation
 
 ``` sh
-go get -u github.com/tommy351/zap-stackdriver
+go get github.com/tommy351/zap-stackdriver
 ```
 
 ## Usage
